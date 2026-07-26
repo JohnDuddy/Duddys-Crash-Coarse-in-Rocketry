@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Trajectory Not Found | {{ app_name }}{% endblock %}
+{% block page_id %}error{% endblock %}
+{% block content %}
+  <section class="error-page"><p class="eyebrow">Navigation fault / HTTP 404</p><h1>This trajectory<br><em>does not close.</em></h1><p>The requested module or seminar is outside the published flight plan.</p><a class="primary-action" href="{{ url_for('index') }}">Return to mission control <span>&rarr;</span></a></section>
+{% endblock %}

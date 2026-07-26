@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Independent Expert Review | {{ app_name }}{% endblock %}
+{% block page_id %}review{% endblock %}
+{% block extra_head %}<script defer src="{{ url_for('static', filename='js/review.js') }}"></script>{% endblock %}
+{% block content %}
+  <article class="review-page" data-review-workspace>
+    <header class="review-hero">
+      <p class="eyebrow">Independent technical evaluation / portable evidence record</p>
+      <h1>Expert review<br><em>without courtesy scoring.</em></h1>
+      <p>This instrument is prepared for an independent domain specialist, including the requested reviewer John Eichner. Entering a name does not imply endorsement, affiliation, or completion of a review.</p>
+      <div><span>10 scored dimensions</span><span>0-5 anchored scale</span><span>JSON export</span><span>Local browser storage</span></div>
+    </header>
+
+    <section class="review-identity">
+      <label>Reviewer name<input data-reviewer-name value="John Eichner"></label>
+      <label>Relevant expertise<input data-reviewer-role placeholder="Propulsion, GN&C, systems, flight dynamics..."></label>
+      <label>Review date<input type="date" data-review-date></label>
+      <label>Build or commit reviewed<input data-review-build placeholder="Git commit SHA or release tag"></label>
+    </section>
+
+    <section class="rubric-intro">
+      <div><span data-review-score>0.0</span><small>/ 5.0 weighted score</small></div>
+      <p>Score evidence, not intent. A score of 3 means technically credible at the stated educational scope. Scores of 4 or 5 require strong, traceable evidence and expert-level treatment.</p>
+      <button type="button" data-review-export>Export review JSON</button>
+    </section>
+
+    <div class="review-rubric">
+      {% set criteria = [
+        ("Technical correctness", "Equations, signs, units, assumptions, and interpretations are defensible."),
+        ("Graduate and research depth", "Treatment progresses beyond survey material into derivation, uncertainty, and open research."),
+        ("Model discipline", "Fidelity, validity, convergence, and model-form error remain explicit."),
+        ("Primary-source traceability", "Claims connect to authoritative sources with appropriate context."),
+        ("Simulation integrity", "Interactive models conserve the right quantities and state their screening limitations."),
+        ("Pedagogical effectiveness", "A capable learner can build understanding without hiding mathematical difficulty."),
+        ("Safety and regulatory framing", "The app avoids operational misuse and presents public-safety obligations responsibly."),
+        ("Reproducibility", "Code, configuration, tests, sources, and results can be independently rerun."),
+        ("Original contribution", "The integrated tutorial and review workflow add value beyond linked reference material."),
+        ("Funding readiness", "Scope, evidence, roadmap, risks, and maintenance needs support responsible investment.")
+      ] %}
+      {% for title, description in criteria %}
+        <article class="review-criterion" data-review-criterion data-weight="{{ 1.25 if loop.index in [1,2,3,5] else 1 }}">
+          <header><span>{{ "%02d"|format(loop.index) }}</span><div><h2>{{ title }}</h2><p>{{ description }}</p></div><output data-score-output>0</output></header>
+          <div class="score-scale"><span>0 not reviewed</span><span>1 deficient</span><span>2 major revision</span><span>3 credible</span><span>4 strong</span><span>5 exceptional</span></div>
+          <input type="range" min="0" max="5" step="0.5" value="0" data-score-input aria-label="{{ title }} score">
+          <label>Evidence, defect, or required action<textarea data-score-note placeholder="Cite a module, equation, behavior, source, or missing test."></textarea></label>
+        </article>
+      {% endfor %}
+    </div>
+
+    <section class="review-summary">
+      <label>Top three technical strengths<textarea data-review-strengths></textarea></label>
+      <label>Top three blocking defects<textarea data-review-defects></textarea></label>
+      <label>Funding recommendation<select data-review-recommendation><option>Not assessed</option><option>Do not fund</option><option>Fund only after blocking revisions</option><option>Fund a bounded validation phase</option><option>Fund continued development</option></select></label>
+      <label>Overall technical statement<textarea data-review-statement placeholder="State what was reviewed, what is credible, and what remains unproven."></textarea></label>
+    </section>
+  </article>
+{% endblock %}

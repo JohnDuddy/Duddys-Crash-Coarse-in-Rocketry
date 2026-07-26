@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}{{ module.title }} | {{ app_name }}{% endblock %}
+{% block page_id %}module{% endblock %}
+{% block extra_head %}<script defer src="{{ url_for('static', filename='js/simulators.js') }}"></script>{% endblock %}
+{% block content %}
+  <article class="module-page">
+    <header class="module-hero">
+      <div class="reveal">
+        <p class="eyebrow">Module {{ "%02d"|format(module.number) }} / {{ "%02d"|format(total_modules) }}</p>
+        <h1>{{ module.title }}</h1>
+        <p>{{ module.summary }}</p>
+        <div class="module-meta"><span>6 research seminars</span><span>4 governing equations</span><span>{{ module.sources|length }} primary references</span><span>1 interactive analysis lab</span></div>
+      </div>
+      <aside class="mission-standard reveal">
+        <span>RESEARCH STANDARD</span>
+        <strong>{{ module.domain }}</strong>
+        <p>Every conclusion must expose model validity, convergence, uncertainty, counterevidence, and the decision it supports.</p>
+      </aside>
+    </header>
+
+    <nav class="local-nav" aria-label="Module sections">
+      <a href="#outcomes">Outcomes</a><a href="#equations">Equations</a><a href="#laboratory">Laboratory</a><a href="#seminars">Seminars</a><a href="#research">Research edge</a><a href="#references">Sources</a>
+    </nav>
+
+    <section class="content-section" id="outcomes">
+      <header class="section-heading reveal"><p class="eyebrow">Reviewable outcomes</p><h2>What technical mastery looks like</h2></header>
+      <ol class="outcome-grid">
+        {% for outcome in module.outcomes %}<li class="reveal"><span>{{ "%02d"|format(loop.index) }}</span><p>{{ outcome }}</p></li>{% endfor %}
+      </ol>
+    </section>
+
+    <section class="content-section equation-section" id="equations">
+      <header class="section-heading reveal"><p class="eyebrow">Governing model</p><h2>Equations are conditional claims</h2><p>Read the validity boundary before using the expression.</p></header>
+      <div class="equation-grid">
+        {% for item in module.equations %}
+          <article class="equation-card reveal">
+            <span>{{ "%02d"|format(loop.index) }}</span>
+            <h3>{{ item.name }}</h3>
+            <strong>{{ item.expression }}</strong>
+            <p>{{ item.meaning }}</p>
+            <aside><b>Validity boundary</b>{{ item.validity }}</aside>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="content-section lab-section" id="laboratory" data-rocket-lab data-lab-type="{{ module.lab.type }}">
+      <header class="section-heading reveal"><p class="eyebrow">Interactive research laboratory</p><h2>{{ module.lab.title }}</h2><p>{{ module.lab.description }}</p></header>
+      <div class="lab-shell reveal">
+        <div class="lab-viewport">
+          <canvas width="980" height="560" data-lab-canvas aria-label="{{ module.lab.title }} visualization"></canvas>
+          <div class="lab-readouts" data-lab-readouts aria-live="polite"></div>
+        </div>
+        <aside class="lab-controls">
+          <header><span>MODEL INPUTS</span><b>LIVE SOLVER</b></header>
+          <div data-lab-controls></div>
+          <button type="button" data-lab-reset>Reset baseline</button>
+          <p>Screening model only. The display exposes trends and coupling; it does not replace qualified analysis, test, regulation, or operational review.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="content-section seminar-section" id="seminars">
+      <header class="section-heading reveal"><p class="eyebrow">Narrated research course</p><h2>Six seminars from model to defense</h2><p>Each seminar includes a research frame, derivation, engineering case, V&V, uncertainty, reproducibility protocol, and expert-defense prompt.</p></header>
+      <div class="seminar-grid">
+        {% for item in module.seminars %}
+          <article class="seminar-card reveal">
+            <header><span>{{ "%02d"|format(item.number) }}</span><em>{{ item.minutes }} min / {{ item.word_count }} words</em></header>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.question }}</p>
+            <a href="{{ url_for('research_seminar', slug=module.slug, number=item.number) }}">Enter seminar <span>&rarr;</span></a>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="content-section research-section" id="research">
+      <header class="section-heading reveal"><p class="eyebrow">Open research edge</p><h2>Questions worth defending</h2></header>
+      <div class="research-questions">
+        {% for question in module.research_questions %}<article class="reveal"><span>RQ-{{ "%02d"|format(loop.index) }}</span><p>{{ question }}</p></article>{% endfor %}
+      </div>
+    </section>
+
+    <section class="content-section source-section" id="references">
+      <header class="section-heading reveal"><p class="eyebrow">Primary-source traceability</p><h2>Follow the evidence upstream</h2></header>
+      <div class="source-list">
+        {% for source in module.sources %}
+          <a class="reveal" href="{{ source.url }}" target="_blank" rel="noreferrer"><span>{{ source.agency }}</span><h3>{{ source.title }}</h3><p>{{ source.publication }}</p><b>Open primary source &nearr;</b></a>
+        {% endfor %}
+      </div>
+    </section>
+
+    <nav class="module-pagination">
+      {% if previous_module %}<a href="{{ url_for('course_module', slug=previous_module.slug) }}"><span>&larr; Previous module</span><strong>{{ previous_module.title }}</strong></a>{% else %}<span></span>{% endif %}
+      {% if next_module %}<a href="{{ url_for('course_module', slug=next_module.slug) }}"><span>Next module &rarr;</span><strong>{{ next_module.title }}</strong></a>{% endif %}
+    </nav>
+  </article>
+{% endblock %}

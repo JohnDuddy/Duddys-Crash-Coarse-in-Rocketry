@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A graduate-to-research rocketry tutorial with advanced simulations, primary-source traceability, and expert review tools.">
+  <title>{% block title %}{{ app_name }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+  {% block extra_head %}{% endblock %}
+</head>
+<body data-page="{% block page_id %}default{% endblock %}">
+  <a class="skip-link" href="#main-content">Skip to mission content</a>
+  <div class="app-shell">
+    <aside class="mission-rail" data-mission-rail aria-label="Course navigation">
+      <a class="brand" href="{{ url_for('index') }}">
+        <span class="brand-mark" aria-hidden="true"><i></i><b>DC</b></span>
+        <span><strong>Duddy's Crash Coarse</strong><small>in Rocketry</small></span>
+      </a>
+      <nav class="rail-primary" aria-label="Program areas">
+        <a href="{{ url_for('index') }}">Mission control</a>
+        <a href="{{ url_for('review') }}">Expert review</a>
+        <a href="{{ url_for('funding') }}">Funding brief</a>
+        <a href="{{ url_for('sources') }}">Primary sources</a>
+        <a href="{{ repository_url }}" target="_blank" rel="noreferrer">GitHub repository</a>
+      </nav>
+      <div class="rail-modules">
+        <p>Technical flight plan</p>
+        {% for item in nav_modules %}
+          <a href="{{ url_for('course_module', slug=item.slug) }}" {% if module is defined and module.slug == item.slug %}aria-current="page"{% endif %}>
+            <span>{{ "%02d"|format(item.number) }}</span><b>{{ item.title }}</b>
+          </a>
+        {% endfor %}
+      </div>
+      <div class="rail-disclaimer">
+        <strong>Independent educational project</strong>
+        <p>Not affiliated with, sponsored by, or endorsed by NASA, FAA, or any referenced organization.</p>
+      </div>
+    </aside>
+
+    <div class="page-frame">
+      <header class="topbar">
+        <button class="rail-toggle" type="button" data-rail-toggle aria-label="Open course navigation"><span></span><span></span></button>
+        <form class="course-search" action="{{ url_for('search') }}" method="get" role="search">
+          <label for="course-query">Search the research course</label>
+          <span aria-hidden="true">/</span>
+          <input id="course-query" name="q" placeholder="Search cavitation, NRHO, FDIR, TPS..." autocomplete="off">
+          <button type="submit">Search</button>
+        </form>
+        <a class="review-link" href="{{ url_for('review') }}">Open expert review</a>
+      </header>
+      <main id="main-content">{% block content %}{% endblock %}</main>
+      <footer class="site-footer">
+        <p><strong>{{ app_name }}</strong> is an open educational and research-prototyping project. It is not flight software and must not be used for operational launch decisions.</p>
+        <div><a href="{{ url_for('sources') }}">Source registry</a><a href="{{ repository_url }}">Download on GitHub</a></div>
+      </footer>
+    </div>
+  </div>
+  <div class="rail-scrim" data-rail-scrim></div>
+</body>
+</html>

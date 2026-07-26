@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Primary Sources | {{ app_name }}{% endblock %}
+{% block page_id %}sources{% endblock %}
+{% block content %}
+  <article class="sources-page">
+    <header><p class="eyebrow">Source registry / accessed {{ accessed }}</p><h1>Follow every claim<br><em>upstream.</em></h1><p>Technical depth begins with original agency handbooks, reports, software, directives, and regulations. These links are references, not endorsements.</p></header>
+    <div class="source-registry">
+      {% for source in sources %}
+        <article class="reveal">
+          <header><span>{{ "%02d"|format(loop.index) }}</span><b>{{ source.agency }}</b></header>
+          <h2>{{ source.title }}</h2>
+          <p>{{ source.note }}</p>
+          <small>{{ source.publication }}</small>
+          <a href="{{ source.url }}" target="_blank" rel="noreferrer">Open primary source <span>&nearr;</span></a>
+        </article>
+      {% endfor %}
+    </div>
+  </article>
+{% endblock %}

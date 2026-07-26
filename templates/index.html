@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block page_id %}home{% endblock %}
+{% block extra_head %}<script defer src="{{ url_for('static', filename='js/mission-visual.js') }}"></script>{% endblock %}
+{% block content %}
+  <section class="hero">
+    <canvas class="hero-orbit" width="1500" height="900" data-hero-orbit aria-hidden="true"></canvas>
+    <div class="hero-copy reveal">
+      <p class="eyebrow">Graduate mechanics / research methods / systems evidence</p>
+      <h1>Rocket science,<br><em>without the mythology.</em></h1>
+      <p class="hero-summary">A rigorous bridge from variable-mass mechanics to cislunar dynamics, hot-gas systems, autonomous landing, assurance cases, and expert technical defense.</p>
+      <div class="hero-actions">
+        <a class="primary-action" href="{{ url_for('course_module', slug=modules[0].slug) }}">Begin flight plan <span>&rarr;</span></a>
+        <a href="{{ url_for('review') }}">Review as an expert</a>
+      </div>
+      <div class="hero-metrics">
+        <span><strong>{{ modules|length }}</strong> technical modules</span>
+        <span><strong>{{ total_seminars }}</strong> research seminars</span>
+        <span><strong>{{ "{:,}".format(total_words) }}</strong> seminar words</span>
+        <span><strong>{{ total_minutes }}</strong> narrated minutes</span>
+      </div>
+    </div>
+    <aside class="hero-console reveal" aria-label="Mission analysis preview">
+      <header><span>MISSION DESIGN REVIEW / MDR-00</span><b>RESEARCH BUILD</b></header>
+      <div class="console-orbit">
+        <span class="earth"></span><span class="trajectory"></span><span class="vehicle"></span>
+        <i>PERIGEE</i><i>INJECTION</i><i>NRHO TARGET</i>
+      </div>
+      <dl>
+        <div><dt>Architecture</dt><dd>Traceable</dd></div>
+        <div><dt>Models</dt><dd>Layered</dd></div>
+        <div><dt>Uncertainty</dt><dd>Explicit</dd></div>
+        <div><dt>Evidence</dt><dd>Reviewable</dd></div>
+      </dl>
+      <p>No NASA endorsement is claimed. Primary NASA materials are cited as technical sources.</p>
+    </aside>
+  </section>
+
+  <section class="method-band">
+    <article><span>01</span><h2>Derive</h2><p>Expose the control volume, frame, assumptions, units, and validity limits.</p></article>
+    <article><span>02</span><h2>Compute</h2><p>Build reproducible numerical experiments with convergence and residual evidence.</p></article>
+    <article><span>03</span><h2>Validate</h2><p>Match evidence to intended use and keep model discrepancy visible.</p></article>
+    <article><span>04</span><h2>Defend</h2><p>Present claims, counterarguments, uncertainty, and a falsification plan.</p></article>
+  </section>
+
+  <section class="program-section" id="flight-plan">
+    <header class="section-heading reveal">
+      <p class="eyebrow">The technical flight plan</p>
+      <h2>Fourteen coupled disciplines.<br>One mission-level argument.</h2>
+      <p>Each module contains six graduate research seminars, governing equations with validity boundaries, an interactive laboratory, open research questions, and direct primary sources.</p>
+    </header>
+    <div class="module-grid">
+      {% for item in modules %}
+        <article class="module-card reveal">
+          <header><span>{{ "%02d"|format(item.number) }}</span><em>{{ item.domain }}</em></header>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.summary }}</p>
+          <div><span>6 seminars</span><span>4 equations</span><span>1 live lab</span></div>
+          <a href="{{ url_for('course_module', slug=item.slug) }}">Open technical module <span>&rarr;</span></a>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="review-callout reveal">
+    <div>
+      <p class="eyebrow">Independent technical evaluation</p>
+      <h2>Built to be challenged by a rocket scientist.</h2>
+      <p>The reviewer workspace scores technical correctness, depth, model discipline, evidence, simulations, pedagogy, safety framing, reproducibility, novelty, and funding readiness. It exports a portable JSON review record.</p>
+    </div>
+    <a href="{{ url_for('review') }}">Enter reviewer workspace <span>&rarr;</span></a>
+  </section>
+{% endblock %}

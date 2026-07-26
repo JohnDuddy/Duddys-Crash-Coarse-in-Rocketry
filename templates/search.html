@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Search | {{ app_name }}{% endblock %}
+{% block page_id %}search{% endblock %}
+{% block content %}
+  <section class="search-page">
+    <p class="eyebrow">Research index</p>
+    <h1>{% if query %}Results for<br><em>"{{ query }}"</em>{% else %}Search the<br><em>flight plan.</em>{% endif %}</h1>
+    {% if results %}
+      <div class="search-results">
+        {% for result in results %}
+          <a href="{{ url_for('course_module', slug=result.module.slug) }}{{ result.url_suffix }}">
+            <span>{{ result.kind }} / Module {{ "%02d"|format(result.module.number) }}</span>
+            <h2>{{ result.title }}</h2><p>{{ result.summary }}</p><b>Open result &rarr;</b>
+          </a>
+        {% endfor %}
+      </div>
+    {% elif query %}<p class="empty-state">No result matches every search term. Try a governing quantity, subsystem, failure mode, or research method.</p>{% endif %}
+  </section>
+{% endblock %}

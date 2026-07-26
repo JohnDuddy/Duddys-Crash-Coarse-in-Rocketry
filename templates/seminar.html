@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}{{ seminar.title }} | {{ app_name }}{% endblock %}
+{% block page_id %}seminar{% endblock %}
+{% block extra_head %}<script defer src="{{ url_for('static', filename='js/lecture-player.js') }}"></script>{% endblock %}
+{% block content %}
+  <article class="seminar-page" data-seminar-player>
+    <header class="seminar-hero">
+      <a href="{{ url_for('course_module', slug=module.slug) }}">&larr; Back to Module {{ "%02d"|format(module.number) }}</a>
+      <p class="eyebrow">Research seminar {{ "%02d"|format(seminar.number) }} / 06</p>
+      <h1>{{ seminar.title }}</h1>
+      <p>{{ seminar.question }}</p>
+      <div><span>{{ seminar.word_count }} words</span><span>{{ seminar.minutes }} narrated minutes</span><span>{{ seminar.sections|length }} technical layers</span></div>
+    </header>
+
+    <section class="audio-console" aria-label="Seminar audio controls">
+      <div><span>READ-ALONG AUDIO</span><strong data-audio-status>Ready. Select Play to begin at the research frame.</strong></div>
+      <div class="audio-controls">
+        <button type="button" data-audio-play>Play / Replay</button>
+        <button type="button" data-audio-pause disabled>Pause</button>
+        <button type="button" data-audio-stop disabled>Stop</button>
+        <label>Voice<select data-audio-voice><option>Loading system voices...</option></select></label>
+        <label>Speed<select data-audio-rate><option value="0.8">0.8x deliberate</option><option value="0.95" selected>0.95x seminar</option><option value="1.1">1.1x review</option><option value="1.25">1.25x rapid</option></select></label>
+      </div>
+      <div class="audio-progress"><i data-audio-progress></i></div>
+    </section>
+
+    <div class="seminar-layout">
+      <aside class="seminar-outline">
+        <p>Seminar layers</p>
+        {% for section in seminar.sections %}<a href="#section-{{ loop.index }}"><span>{{ "%02d"|format(loop.index) }}</span>{{ section.title }}</a>{% endfor %}
+        <div><span>Red-team failure</span><p>{{ seminar.failure }}</p></div>
+      </aside>
+      <div class="seminar-transcript">
+        {% for section in seminar.sections %}
+          <section id="section-{{ loop.index }}" class="transcript-section reveal" data-audio-segment="{{ loop.index0 }}">
+            <header><span>{{ "%02d"|format(loop.index) }}</span><div><p>Technical layer</p><h2>{{ section.title }}</h2></div><button type="button" data-play-from="{{ loop.index0 }}">Play from here</button></header>
+            <p>{{ section.body }}</p>
+          </section>
+        {% endfor %}
+        <section class="defense-card reveal">
+          <span>ORAL DEFENSE PROMPT</span>
+          <h2>Defend the model, not the slide.</h2>
+          <p>State the claim, derivation, strongest counterexample, validation evidence, uncertainty that can reverse the decision, and the next experiment that could falsify the result.</p>
+          <a href="{{ url_for('review') }}">Record expert evaluation <span>&rarr;</span></a>
+        </section>
+      </div>
+    </div>
+
+    <nav class="seminar-pagination">
+      {% if previous_seminar %}<a href="{{ url_for('research_seminar', slug=module.slug, number=previous_seminar.number) }}"><span>&larr; Previous seminar</span><strong>{{ previous_seminar.title }}</strong></a>{% else %}<a href="{{ url_for('course_module', slug=module.slug) }}"><span>&larr; Module overview</span><strong>{{ module.title }}</strong></a>{% endif %}
+      {% if next_seminar %}<a href="{{ url_for('research_seminar', slug=module.slug, number=next_seminar.number) }}"><span>Next seminar &rarr;</span><strong>{{ next_seminar.title }}</strong></a>{% endif %}
+    </nav>
+  </article>
+{% endblock %}

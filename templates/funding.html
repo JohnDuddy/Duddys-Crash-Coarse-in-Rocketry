@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Funding Brief | {{ app_name }}{% endblock %}
+{% block page_id %}funding{% endblock %}
+{% block content %}
+  <article class="funding-page">
+    <header class="funding-hero">
+      <p class="eyebrow">First-line funding case / evidence before scale</p>
+      <h1>Fund the validation,<br><em>not the adjectives.</em></h1>
+      <p>The public prototype demonstrates the product thesis. Responsible first-line funding should pay for independent technical review, correction, measurable learner outcomes, stronger scientific computation, and sustainable open-source delivery.</p>
+      <a href="{{ repository_url }}" target="_blank" rel="noreferrer">Inspect the public repository <span>&rarr;</span></a>
+    </header>
+
+    <section class="funding-thesis">
+      <article><span>THE PROBLEM</span><h2>Advanced aerospace knowledge is fragmented.</h2><p>Textbooks, handbooks, technical reports, software, regulations, and lessons learned rarely appear in one traceable learning workflow.</p></article>
+      <article><span>THE PRODUCT</span><h2>A reviewable research-learning environment.</h2><p>Deep seminars, interactive screening models, source lineage, reproducibility expectations, and expert scoring live in one open application.</p></article>
+      <article><span>THE MOAT</span><h2>Evidence architecture, not generated volume.</h2><p>The defensible advantage is a maintained graph from claim to equation, model, uncertainty, source, test, and reviewer finding.</p></article>
+    </section>
+
+    <section class="roadmap-section">
+      <header class="section-heading"><p class="eyebrow">De-risked milestones</p><h2>A staged funding path</h2></header>
+      <div class="roadmap">
+        <article><span>PHASE 01 / 0-90 DAYS</span><h3>Independent validation</h3><p>Complete John Eichner's review or an equivalent credentialed review; classify every defect; correct high-severity technical issues; add reviewer-signed scope and limitations.</p><b>Exit evidence: public review record, issue register, corrected release.</b></article>
+        <article><span>PHASE 02 / 3-6 MONTHS</span><h3>Computational credibility</h3><p>Replace selected screening labs with unit-tested solvers, benchmark cases, convergence studies, uncertainty propagation, downloadable configurations, and reproducible notebooks.</p><b>Exit evidence: benchmark suite and independently reproduced results.</b></article>
+        <article><span>PHASE 03 / 6-12 MONTHS</span><h3>Learning efficacy</h3><p>Run a structured pilot with graduate learners and practicing engineers; measure transfer, error detection, retention, and expert review performance.</p><b>Exit evidence: preregistered metrics and anonymized outcome report.</b></article>
+        <article><span>PHASE 04 / 12+ MONTHS</span><h3>Sustainable platform</h3><p>Add content governance, contributor review, releases, accessibility, hosted deployment, institutional pilots, and a durable maintenance model.</p><b>Exit evidence: maintained contributor and deployment pipeline.</b></article>
+      </div>
+    </section>
+
+    <section class="diligence-section">
+      <header class="section-heading"><p class="eyebrow">Investor and grant diligence</p><h2>Claims this prototype does not make</h2></header>
+      <ul>
+        <li>It is not affiliated with or endorsed by NASA, FAA, or any launch provider.</li>
+        <li>It is not flight software, certified analysis, regulatory guidance, or an operational launch tool.</li>
+        <li>It has not yet demonstrated learning efficacy, market demand, revenue, or expert approval.</li>
+        <li>The named independent reviewer has not endorsed the project unless a signed review is later published.</li>
+        <li>Funding should be milestone-based and conditional on technical and user evidence.</li>
+      </ul>
+    </section>
+
+    <section class="funding-assets">
+      <div><p class="eyebrow">Due-diligence package</p><h2>Everything needed to inspect the current build</h2></div>
+      <a href="{{ repository_url }}">Source and issue history</a>
+      <a href="{{ url_for('review') }}">Independent review rubric</a>
+      <a href="{{ url_for('sources') }}">Primary-source registry</a>
+      <a href="{{ url_for('index') }}#flight-plan">Curriculum scope</a>
+    </section>
+  </article>
+{% endblock %}
