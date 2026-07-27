@@ -7,7 +7,7 @@
     <div class="hero-copy reveal">
       <p class="eyebrow">Graduate mechanics / research methods / systems evidence</p>
       <h1>Rocket science,<br><em>without the mythology.</em></h1>
-      <p class="hero-summary">A rigorous bridge from variable-mass mechanics to cislunar dynamics, hot-gas systems, autonomous landing, assurance cases, and expert technical defense.</p>
+      <p class="hero-summary">A rigorous bridge from variable-mass mechanics to cislunar dynamics, hot-gas systems, autonomous landing, assurance cases, detailed mathematics, and interactive three-dimensional engineering models.</p>
       <div class="hero-actions">
         <a class="primary-action" href="{{ url_for('course_module', slug=modules[0].slug) }}">Begin flight plan <span>&rarr;</span></a>
         <a href="{{ url_for('review') }}">Review as an expert</a>
@@ -17,6 +17,7 @@
         <span><strong>{{ total_seminars }}</strong> research seminars</span>
         <span><strong>{{ "{:,}".format(total_words) }}</strong> seminar words</span>
         <span><strong>{{ total_minutes }}</strong> narrated minutes</span>
+        <span><strong>14</strong> interactive 3D models</span>
       </div>
     </div>
     <aside class="hero-console reveal" aria-label="Mission analysis preview">
@@ -46,7 +47,7 @@
     <header class="section-heading reveal">
       <p class="eyebrow">The technical flight plan</p>
       <h2>Fourteen coupled disciplines.<br>One mission-level argument.</h2>
-      <p>Each module contains six graduate research seminars, governing equations with validity boundaries, an interactive laboratory, open research questions, and direct primary sources.</p>
+      <p>Each module contains six graduate research seminars, a theory-to-practice mathematics studio, governing equations with validity boundaries, a rotatable 3D engineering model, a numerical laboratory, open research questions, and direct primary sources.</p>
     </header>
     <div class="module-grid">
       {% for item in modules %}
@@ -54,7 +55,7 @@
           <header><span>{{ "%02d"|format(item.number) }}</span><em>{{ item.domain }}</em></header>
           <h3>{{ item.title }}</h3>
           <p>{{ item.summary }}</p>
-          <div><span>6 seminars</span><span>4 equations</span><span>1 live lab</span></div>
+          <div><span>Math studio</span><span>3D model</span><span>Live solver</span></div>
           <a href="{{ url_for('course_module', slug=item.slug) }}">Open technical module <span>&rarr;</span></a>
         </article>
       {% endfor %}

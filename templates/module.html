@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block title %}{{ module.title }} | {{ app_name }}{% endblock %}
 {% block page_id %}module{% endblock %}
-{% block extra_head %}<script defer src="{{ url_for('static', filename='js/simulators.js') }}"></script>{% endblock %}
+{% block extra_head %}
+  <script defer src="{{ url_for('static', filename='js/model-3d.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/simulators.js') }}"></script>
+{% endblock %}
 {% block content %}
   <article class="module-page">
     <header class="module-hero">
@@ -9,7 +12,7 @@
         <p class="eyebrow">Module {{ "%02d"|format(module.number) }} / {{ "%02d"|format(total_modules) }}</p>
         <h1>{{ module.title }}</h1>
         <p>{{ module.summary }}</p>
-        <div class="module-meta"><span>6 research seminars</span><span>4 governing equations</span><span>{{ module.sources|length }} primary references</span><span>1 interactive analysis lab</span></div>
+        <div class="module-meta"><span>6 research seminars</span><span>Detailed mathematics studio</span><span>Interactive 3D model</span><span>{{ module.sources|length }} primary references</span><span>Live analysis lab</span></div>
       </div>
       <aside class="mission-standard reveal">
         <span>RESEARCH STANDARD</span>
@@ -19,7 +22,7 @@
     </header>
 
     <nav class="local-nav" aria-label="Module sections">
-      <a href="#outcomes">Outcomes</a><a href="#equations">Equations</a><a href="#laboratory">Laboratory</a><a href="#seminars">Seminars</a><a href="#research">Research edge</a><a href="#references">Sources</a>
+      <a href="#outcomes">Outcomes</a><a href="#mathematics">Mathematics</a><a href="#equations">Equations</a><a href="#model-3d">3D model</a><a href="#laboratory">Laboratory</a><a href="#seminars">Seminars</a><a href="#research">Research edge</a><a href="#references">Sources</a>
     </nav>
 
     <section class="content-section" id="outcomes">
@@ -27,6 +30,39 @@
       <ol class="outcome-grid">
         {% for outcome in module.outcomes %}<li class="reveal"><span>{{ "%02d"|format(loop.index) }}</span><p>{{ outcome }}</p></li>{% endfor %}
       </ol>
+    </section>
+
+    <section class="content-section mathematics-section" id="mathematics">
+      <header class="section-heading reveal">
+        <p class="eyebrow">Theory to numerical decision</p>
+        <h2>{{ module.math_studio.title }}</h2>
+        <p>{{ module.math_studio.principle }}</p>
+      </header>
+      <div class="math-studio">
+        <article class="math-derivation reveal">
+          <header><span>THEORY / DERIVATION</span><b>SHOW EVERY ASSUMPTION</b></header>
+          <ol>
+            {% for step in module.math_studio.derivation %}
+              <li><span>{{ "%02d"|format(loop.index) }}</span><p>{{ step }}</p></li>
+            {% endfor %}
+          </ol>
+        </article>
+        <article class="math-practical reveal">
+          <header><span>PRACTICAL / WORKED CASE</span><b>UNITS REMAIN VISIBLE</b></header>
+          <h3>{{ module.math_studio.practical.scenario }}</h3>
+          <div class="math-inputs">
+            <span>GIVEN</span>
+            <ul>{% for item in module.math_studio.practical.inputs %}<li>{{ item }}</li>{% endfor %}</ul>
+          </div>
+          <div class="calculation-chain">
+            {% for step in module.math_studio.practical.calculation %}
+              <div><span>{{ "%02d"|format(loop.index) }}</span><code>{{ step }}</code></div>
+            {% endfor %}
+          </div>
+          <aside><b>ENGINEERING INTERPRETATION</b><p>{{ module.math_studio.practical.result }}</p></aside>
+          <footer><b>REQUIRED CHECKS</b><ul>{% for check in module.math_studio.practical.checks %}<li>{{ check }}</li>{% endfor %}</ul></footer>
+        </article>
+      </div>
     </section>
 
     <section class="content-section equation-section" id="equations">
@@ -41,6 +77,33 @@
             <aside><b>Validity boundary</b>{{ item.validity }}</aside>
           </article>
         {% endfor %}
+      </div>
+    </section>
+
+    <section class="content-section model-section" id="model-3d" data-engineering-model data-model-type="{{ module.lab.type }}">
+      <header class="section-heading reveal"><p class="eyebrow">Interactive engineering geometry</p><h2>{{ module.model_3d.title }}</h2><p>{{ module.model_3d.description }}</p></header>
+      <div class="model-shell reveal">
+        <div class="model-viewport">
+          <canvas width="1120" height="680" data-model-canvas aria-label="{{ module.model_3d.title }} interactive 3D visualization"></canvas>
+          <div class="model-axis" aria-hidden="true"><i class="axis-x">X</i><i class="axis-y">Y</i><i class="axis-z">Z</i></div>
+          <div class="model-status" data-model-status aria-live="polite">AUTO ROTATE / NOMINAL ASSEMBLY</div>
+        </div>
+        <aside class="model-controls">
+          <header><span>3D VIEW CONTROL</span><b>DRAG MODEL TO ORBIT</b></header>
+          <label>Yaw <output data-model-yaw-output>28 deg</output><input data-model-yaw type="range" min="-180" max="180" step="1" value="28"></label>
+          <label>Pitch <output data-model-pitch-output>-12 deg</output><input data-model-pitch type="range" min="-70" max="70" step="1" value="-12"></label>
+          <label>Zoom <output data-model-zoom-output>1.00 x</output><input data-model-zoom type="range" min="0.65" max="1.65" step="0.01" value="1"></label>
+          <div class="model-actions">
+            <button type="button" data-model-spin>Pause rotation</button>
+            <button type="button" data-model-explode>Explode / cutaway</button>
+            <button type="button" data-model-reset>Reset view</button>
+          </div>
+          <div class="model-legend">
+            <span>MODEL FEATURES</span>
+            <ul>{% for feature in module.model_3d.features %}<li>{{ feature }}</li>{% endfor %}</ul>
+          </div>
+          <p>Conceptual geometry for teaching spatial relationships. Dimensions and motion are not manufacturing or flight data.</p>
+        </aside>
       </div>
     </section>
 

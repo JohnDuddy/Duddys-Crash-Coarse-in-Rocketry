@@ -137,6 +137,32 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .outcome-grid li { min-height: 190px; padding: 23px; background: var(--paper-bright); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .outcome-grid span { color: var(--orange); font-family: var(--mono); font-size: 9px; }
 .outcome-grid p { margin: 60px 0 0; font-family: var(--serif); font-size: 15px; line-height: 1.45; }
+.mathematics-section { color: white; background: #10212d; }
+.mathematics-section .section-heading > p:last-child { color: #8ea1aa; }
+.math-studio { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: 10px; }
+.math-studio > article { min-width: 0; padding: 28px; border: 1px solid rgba(255,255,255,.10); }
+.math-studio article > header { display: flex; color: #738b96; justify-content: space-between; font-family: var(--mono); font-size: 8px; }
+.math-studio article > header b { color: var(--signal); }
+.math-derivation { background: #08131d; }
+.math-derivation ol { padding: 0; margin: 36px 0 0; list-style: none; }
+.math-derivation li { display: grid; padding: 18px 0; grid-template-columns: 38px minmax(0,1fr); gap: 10px; border-top: 1px solid rgba(255,255,255,.08); }
+.math-derivation li > span { color: var(--orange); font-family: var(--mono); font-size: 9px; }
+.math-derivation li > p { margin: 0; color: #b4c2c7; font-family: var(--serif); font-size: 14px; line-height: 1.65; }
+.math-practical { background: #07101a; box-shadow: inset 4px 0 var(--orange); }
+.math-practical h3 { margin: 40px 0 20px; font-family: var(--display); font-size: clamp(32px,3vw,48px); line-height: .95; text-transform: uppercase; }
+.math-inputs { padding: 18px; color: #c9d5d8; background: rgba(121,217,232,.07); border: 1px solid rgba(121,217,232,.20); }
+.math-inputs > span,.math-practical aside > b,.math-practical footer > b { color: var(--cyan); font-family: var(--mono); font-size: 8px; }
+.math-inputs ul,.math-practical footer ul { padding-left: 18px; margin: 12px 0 0; }
+.math-inputs li,.math-practical footer li { margin: 7px 0; font-family: var(--serif); font-size: 12px; line-height: 1.5; }
+.calculation-chain { display: grid; margin: 12px 0; gap: 5px; }
+.calculation-chain > div { display: grid; padding: 14px; background: rgba(255,255,255,.035); grid-template-columns: 32px minmax(0,1fr); gap: 10px; border-left: 2px solid var(--signal); }
+.calculation-chain span { color: var(--orange); font-family: var(--mono); font-size: 8px; }
+.calculation-chain code { color: var(--signal); font-family: var(--mono); font-size: 11px; line-height: 1.6; white-space: normal; overflow-wrap: anywhere; }
+.math-practical aside { padding: 18px; background: var(--orange); color: var(--void); }
+.math-practical aside > b { color: var(--void); }
+.math-practical aside p { margin: 10px 0 0; color: rgba(0,0,0,.72); font-family: var(--serif); font-size: 13px; line-height: 1.55; }
+.math-practical footer { padding: 18px; margin-top: 10px; color: #aab9bf; border: 1px solid rgba(255,255,255,.10); }
+.math-practical footer > b { color: var(--signal); }
 .equation-section { color: white; background: var(--panel); }
 .equation-section .section-heading > p:last-child { color: #738792; }
 .equation-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 9px; }
@@ -147,6 +173,36 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .equation-card > p { color: #afbdc3; font-family: var(--serif); font-size: 14px; line-height: 1.5; }
 .equation-card aside { padding-top: 16px; color: #617581; font-size: 10px; line-height: 1.5; border-top: 1px solid rgba(255,255,255,.08); }
 .equation-card aside b { display: block; margin-bottom: 5px; color: var(--orange); font-size: 8px; text-transform: uppercase; }
+.model-section { color: white; background: #03070b; }
+.model-section .section-heading > p:last-child { color: #748893; }
+.model-shell { display: grid; background: #050d14; grid-template-columns: minmax(0,1fr) 315px; border: 1px solid rgba(255,255,255,.12); box-shadow: 0 35px 85px rgba(0,0,0,.32); }
+.model-viewport { position: relative; min-width: 0; overflow: hidden; }
+.model-viewport canvas { display: block; width: 100%; height: auto; min-height: 510px; cursor: grab; touch-action: none; }
+.model-viewport canvas:active { cursor: grabbing; }
+.model-status { position: absolute; left: 18px; bottom: 18px; padding: 8px 11px; color: var(--signal); background: rgba(3,7,11,.86); font-family: var(--mono); font-size: 8px; border: 1px solid rgba(200,237,117,.3); }
+.model-axis { position: absolute; right: 19px; bottom: 19px; width: 58px; height: 58px; color: white; font-family: var(--mono); font-size: 8px; }
+.model-axis::before,.model-axis::after { position: absolute; left: 28px; bottom: 9px; width: 1px; height: 42px; background: rgba(255,255,255,.22); content: ""; transform-origin: bottom; }
+.model-axis::after { transform: rotate(90deg); }
+.model-axis i { position: absolute; font-style: normal; }
+.model-axis .axis-x { right: 0; bottom: 5px; color: var(--orange); }
+.model-axis .axis-y { left: 7px; bottom: 5px; color: var(--cyan); }
+.model-axis .axis-z { left: 26px; top: 0; color: var(--signal); }
+.model-controls { padding: 24px; background: #0c1a24; border-left: 1px solid rgba(255,255,255,.1); }
+.model-controls > header { display: flex; color: #69808b; justify-content: space-between; font-family: var(--mono); font-size: 8px; }
+.model-controls > header b { color: var(--signal); }
+.model-controls > label { display: block; margin-top: 23px; color: #aebfc5; font-size: 8px; font-weight: 800; text-transform: uppercase; }
+.model-controls label output { float: right; color: var(--orange); font-family: var(--mono); }
+.model-controls input[type="range"] { width: 100%; margin-top: 9px; accent-color: var(--orange); }
+.model-actions { display: grid; margin-top: 24px; grid-template-columns: 1fr 1fr; gap: 6px; }
+.model-actions button { min-height: 40px; padding: 7px; color: var(--void); background: var(--signal); font-size: 7px; font-weight: 900; border: 0; cursor: pointer; text-transform: uppercase; }
+.model-actions button:nth-child(2) { background: var(--orange); }
+.model-actions button:last-child { color: white; background: #1b303c; grid-column: 1/-1; }
+.model-legend { padding: 16px; margin-top: 20px; background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.08); }
+.model-legend > span { color: var(--orange); font-family: var(--mono); font-size: 8px; }
+.model-legend ul { padding: 0; margin: 13px 0 0; list-style: none; }
+.model-legend li { padding: 7px 0 7px 15px; color: #a7b7bd; font-size: 9px; border-top: 1px solid rgba(255,255,255,.07); }
+.model-legend li::before { margin-left: -15px; margin-right: 8px; color: var(--signal); content: "+"; font-family: var(--mono); }
+.model-controls > p { margin: 18px 0 0; color: #607580; font-size: 9px; line-height: 1.5; }
 .lab-section { color: white; background: var(--void); }
 .lab-section .section-heading > p:last-child { color: #778a95; }
 .lab-shell { display: grid; background: #07121d; grid-template-columns: minmax(0,1fr) 330px; border: 1px solid rgba(255,255,255,.12); }
@@ -301,6 +357,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .hero-console { max-width: 650px; }
   .method-band { grid-template-columns: repeat(2,1fr); }
   .outcome-grid { grid-template-columns: repeat(2,1fr); }
+  .math-studio { grid-template-columns: 1fr; }
+  .model-shell { grid-template-columns: minmax(0,1fr) 270px; }
   .source-list a { grid-template-columns: 120px 1fr; }
   .source-list p,.source-list b { grid-column: 2; text-align: left; }
   .funding-assets { grid-template-columns: repeat(2,1fr); }
@@ -332,6 +390,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .review-callout { padding: 55px 22px; grid-template-columns: 1fr; align-items: start; }
   .mission-standard { max-width: 360px; transform: none; }
   .local-nav { top: 62px; padding: 0 20px; gap: 20px; }
+  .math-studio > article { padding: 21px; }
+  .model-shell { grid-template-columns: 1fr; }
+  .model-viewport canvas { min-height: 340px; }
+  .model-controls { border-top: 1px solid rgba(255,255,255,.1); border-left: 0; }
   .lab-shell { grid-template-columns: 1fr; }
   .lab-viewport canvas { min-height: 340px; }
   .lab-readouts { position: static; padding: 12px; background: var(--deep); }

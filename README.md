@@ -7,12 +7,14 @@ A public, open-source graduate-to-research rocketry tutorial built around deriva
 ## What Is Included
 
 - 14 coupled technical modules, from mission architecture through reusable landing
-- 84 research seminars with more than 43,000 words of instruction
+- 84 research seminars with more than 54,000 words of instruction
 - 14 interactive mission-analysis laboratories
+- 14 detailed mathematics studios with theoretical derivations, worked numerical cases, unit checks, and practical engineering interpretation
 - 56 governing equations with explicit validity boundaries
+- 14 interactive, rotatable 3D engineering models with exploded and cutaway views
 - System text-to-speech with Play, Pause, Resume, Stop, voice, speed, and per-section playback
 - Search across modules and seminars
-- An independent expert-review workspace prepared for John Eichner or another qualified reviewer
+- An independent expert-review workspace for a qualified domain specialist
 - Weighted technical scoring, local autosave, and portable JSON review export
 - A first-line funding brief with milestone-based validation gates
 - Direct links to NASA, NASA NTRS, NASA Software Catalog, NASA directives, and current eCFR primary sources
@@ -88,7 +90,7 @@ Open `/review` in the running application. The reviewer should:
 5. Record blocking technical defects and required corrective actions.
 6. Export the review JSON and attach it to a GitHub issue or release record.
 
-The prefilled reviewer name does not imply that John Eichner has reviewed or endorsed the project.
+The reviewer workspace begins blank. A recorded reviewer name does not imply affiliation or endorsement.
 
 ## Project Structure
 
@@ -99,8 +101,11 @@ rocket_sources.py         Authoritative primary-source registry
 templates/                Application pages
 static/css/app.css        Responsive mission-control visual system
 static/js/simulators.js   Fourteen interactive screening laboratories
+static/js/model-3d.js     Fourteen interactive 3D engineering scenes
 static/js/lecture-player.js
 static/js/review.js
+rocket_math.py            Detailed theory and practical calculation studios
+rocket_models.py          Module-specific 3D model metadata
 tests/                    Curriculum and route regression tests
 REVIEW_PROTOCOL.md        Independent technical-review procedure
 FUNDING_BRIEF.md          Milestone-based first-line funding case

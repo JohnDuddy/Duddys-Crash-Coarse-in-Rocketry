@@ -1,5 +1,7 @@
 """Graduate-to-research rocketry curriculum and seminar generator."""
 
+from rocket_math import math_studio_for
+from rocket_models import model_for
 from rocket_sources import source_list
 
 
@@ -559,23 +561,31 @@ def _build_seminar(module_item, number, spec):
             ),
         },
         {
-            "title": "Mathematical spine",
+            "title": "Mathematical theory and derivation",
             "body": (
                 f"{spec['method']} The anchor relationship is {equation_item['name']}: "
                 f"{equation_item['expression']}. {equation_item['meaning']} Derive or justify each "
-                f"term, preserve units and signs, and nondimensionalize where scaling matters. "
+                f"term from the controlling conservation law, preserve units and signs, and nondimensionalize "
+                f"where scaling matters. The module-level principle is: {module_item['math_studio']['principle']} "
+                f"Write the state, independent variable, frame, constitutive closure, initial conditions, "
+                f"boundary conditions, and observables before selecting a solver. Use symbolic reduction to "
+                f"recover at least one analytic limit, then identify the dimensionless groups that govern regime. "
                 f"Validity boundary: {equation_item['validity']} A postdoctoral-quality analysis "
-                f"must show numerical conditioning, convergence, and sensitivity rather than only a result."
+                f"must show numerical conditioning, convergence, sensitivity, and conservation residuals rather "
+                f"than only a result."
             ),
         },
         {
-            "title": "Worked engineering case",
+            "title": "Practical calculation and engineering case",
             "body": (
                 f"{spec['case']} Build the case in layers: a transparent analytic estimate, a numerical "
                 f"baseline, and at least one higher-fidelity correction. Close conserved quantities and "
-                f"interfaces, compare against an independent method, and report the decision metric with "
-                f"units. Preserve enough intermediate state that another analyst can reproduce the result "
-                f"and locate the first disagreement."
+                f"interfaces, compare against an independent method, and report the decision metric with units. "
+                f"Use this calculation order: convert all inputs to a single unit system; compute the simplest "
+                f"closed-form scale; substitute values while retaining units; estimate sign and order of magnitude "
+                f"independently; run the numerical model; tabulate the difference; then attribute that difference "
+                f"to added physics rather than solver mystique. Preserve intermediate state, residuals, and "
+                f"assumption changes so another analyst can reproduce the result and locate the first disagreement."
             ),
         },
         {
@@ -639,6 +649,9 @@ def _build_seminar(module_item, number, spec):
 
 
 for _module in MODULES:
+    _lab_type = _module["lab"]["type"]
+    _module["math_studio"] = math_studio_for(_lab_type)
+    _module["model_3d"] = model_for(_lab_type)
     _module["seminars"] = [
         _build_seminar(_module, number, spec)
         for number, spec in enumerate(_module["seminar_specs"], start=1)
@@ -674,6 +687,17 @@ def search_curriculum(query):
                 *item["outcomes"],
                 *item["research_questions"],
                 *(f"{eq['name']} {eq['expression']} {eq['meaning']}" for eq in item["equations"]),
+                item["math_studio"]["title"],
+                item["math_studio"]["principle"],
+                *item["math_studio"]["derivation"],
+                item["math_studio"]["practical"]["scenario"],
+                *item["math_studio"]["practical"]["inputs"],
+                *item["math_studio"]["practical"]["calculation"],
+                item["math_studio"]["practical"]["result"],
+                *item["math_studio"]["practical"]["checks"],
+                item["model_3d"]["title"],
+                item["model_3d"]["description"],
+                *item["model_3d"]["features"],
             ]
         ).lower()
         if all(term in module_text for term in terms):
@@ -727,6 +751,12 @@ def validate_curriculum():
             errors.append(f"{item['slug']} needs at least three primary sources")
         if not item["lab"].get("type"):
             errors.append(f"{item['slug']} needs an interactive laboratory")
+        if len(item.get("math_studio", {}).get("derivation", [])) < 5:
+            errors.append(f"{item['slug']} needs a detailed mathematical derivation")
+        if len(item.get("math_studio", {}).get("practical", {}).get("calculation", [])) < 4:
+            errors.append(f"{item['slug']} needs a practical calculation workflow")
+        if len(item.get("model_3d", {}).get("features", [])) < 4:
+            errors.append(f"{item['slug']} needs a complete 3D model specification")
         for seminar_item in item["seminars"]:
             if len(seminar_item["sections"]) != 7:
                 errors.append(f"{seminar_item['slug']} needs seven seminar sections")

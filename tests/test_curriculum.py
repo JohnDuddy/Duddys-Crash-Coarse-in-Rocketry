@@ -26,6 +26,12 @@ class RocketCurriculumTests(unittest.TestCase):
                 self.assertEqual(len(item["research_questions"]), 4)
                 self.assertGreaterEqual(len(item["sources"]), 3)
                 self.assertTrue(item["lab"]["type"])
+                self.assertEqual(len(item["math_studio"]["derivation"]), 5)
+                self.assertGreaterEqual(
+                    len(item["math_studio"]["practical"]["calculation"]),
+                    4,
+                )
+                self.assertEqual(len(item["model_3d"]["features"]), 4)
                 for seminar in item["seminars"]:
                     self.assertEqual(len(seminar["sections"]), 7)
                     self.assertGreaterEqual(seminar["word_count"], 500)

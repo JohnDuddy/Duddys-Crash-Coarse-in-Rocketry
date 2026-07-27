@@ -8,6 +8,8 @@ Advanced rocketry education is fragmented across textbooks, agency handbooks, te
 
 - Public, runnable source code
 - 14 technical modules and 84 research seminars
+- 14 detailed theory-to-practice mathematics studios
+- 14 interactive 3D engineering models
 - 14 interactive screening laboratories
 - Primary-source registry
 - Automated curriculum and route tests

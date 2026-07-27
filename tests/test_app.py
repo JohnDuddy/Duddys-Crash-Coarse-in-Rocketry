@@ -39,6 +39,10 @@ class RocketAppTests(unittest.TestCase):
                 )
                 self.assertIn(b"data-rocket-lab", module_response.data)
                 self.assertIn(b"data-lab-canvas", module_response.data)
+                self.assertIn(b"data-engineering-model", module_response.data)
+                self.assertIn(b"data-model-canvas", module_response.data)
+                self.assertIn(b"THEORY / DERIVATION", module_response.data)
+                self.assertIn(b"PRACTICAL / WORKED CASE", module_response.data)
                 for seminar in item["seminars"]:
                     response = self.client.get(
                         f"/module/{item['slug']}/seminar/{seminar['number']}"
@@ -55,7 +59,7 @@ class RocketAppTests(unittest.TestCase):
         review = self.client.get("/review")
         self.assertEqual(review.status_code, 200)
         self.assertEqual(review.data.count(b"data-review-criterion"), 10)
-        self.assertIn(b"John Eichner", review.data)
+        self.assertIn(b'placeholder="Independent reviewer"', review.data)
         self.assertIn(b"data-review-export", review.data)
         self.assertEqual(self.client.get("/funding").status_code, 200)
         sources = self.client.get("/sources")
@@ -74,6 +78,8 @@ class RocketAppTests(unittest.TestCase):
         self.assertEqual(payload["modules"], 14)
         self.assertEqual(payload["seminars"], 84)
         self.assertGreater(payload["seminar_words"], 43_000)
+        self.assertEqual(payload["mathematics_studios"], 14)
+        self.assertEqual(payload["interactive_3d_models"], 14)
         self.assertEqual(payload["primary_sources"], 18)
         self.assertEqual(payload["curriculum_errors"], [])
 

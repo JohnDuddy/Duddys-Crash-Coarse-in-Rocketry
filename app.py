@@ -122,6 +122,8 @@ def health():
                 for item in modules
                 for seminar in item["seminars"]
             ),
+            "mathematics_studios": sum(bool(item.get("math_studio")) for item in modules),
+            "interactive_3d_models": sum(bool(item.get("model_3d")) for item in modules),
             "primary_sources": len(SOURCES),
             "curriculum_errors": errors,
             "repository": REPOSITORY_URL,
@@ -136,4 +138,3 @@ def not_found(_error):
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5080, debug=False)
-

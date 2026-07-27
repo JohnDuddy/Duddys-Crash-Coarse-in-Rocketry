@@ -1,7 +1,7 @@
 (() => {
   const workspace = document.querySelector("[data-review-workspace]");
   if (!workspace) return;
-  const storageKey = "duddyRocketryExpertReview:v1";
+  const storageKey = "duddyRocketryExpertReview:v2";
   const criteria = [...workspace.querySelectorAll("[data-review-criterion]")];
   const totalOutput = workspace.querySelector("[data-review-score]");
   const dateInput = workspace.querySelector("[data-review-date]");
@@ -36,7 +36,7 @@
 
   function reviewData() {
     return {
-      schema: "duddy-rocketry-review-v1",
+      schema: "duddy-rocketry-review-v2",
       project: "Duddy's Crash Coarse in Rocketry",
       disclaimer: "A saved reviewer name does not imply affiliation or endorsement.",
       exported_at: new Date().toISOString(),
